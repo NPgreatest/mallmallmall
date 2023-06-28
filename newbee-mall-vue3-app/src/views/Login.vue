@@ -1,54 +1,94 @@
-<!--
- * 严肃声明：
- * 开源版本请务必保留此注释头信息，若删除我方将保留所有法律责任追究！
- * 本系统已申请软件著作权，受国家版权局知识产权以及国家计算机软件著作权保护！
- * 可正常分享和学习源码，不得用于违法犯罪活动，违者必究！
- * Copyright (c) 2020 陈尼克 all rights reserved.
- * 版权所有，侵权必究！
- *
--->
+
 
 <template>
-  <div class="login">
+  <div class="login background" id="HomePage" @click="ChangeBackground"><!--一个包含登录和注册内容的<div>容器，类名为"login"。-->
     <s-header :name="type == 'login' ? '登录' : '注册'" :back="'/home'"></s-header>
-    <img class="logo" src="https://s.yezgea02.com/1604045825972/newbee-mall-vue3-app-logo.png" alt="">
+    <!--页面顶部的标题栏，通过<s-header>组件实现，标题根据type的值动态显示为"注册"或"登录"，如果type的值是login则返回注册
+    返回按钮指向"/home"路径。-->
+    <img class="logo" src="https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/cart.png" alt="">
+<!-- 应用Logo，通过<img>元素插入图片。-->
     <div v-if="state.type == 'login'" class="login-body login">
-      <van-form @submit="onSubmit">
-        <van-field
-          v-model="state.username"
-          name="username"
-          label="用户名"
-          placeholder="用户名"
-          :rules="[{ required: true, message: '请填写用户名' }]"
-        />
-        <van-field
-          v-model="state.password"
-          type="password"
-          name="password"
-          label="密码"
-          placeholder="密码"
-          :rules="[{ required: true, message: '请填写密码' }]"
-        />
-        <van-field
-          center
-          clearable
-          label="验证码"
-          placeholder="输入验证码"
-          v-model="state.verify"
-        >
-          <template #button>
-            <vue-img-verify ref="verifyRef" />
-          </template>
-        </van-field>
-        <div style="margin: 16px;">
-          <div class="link-register" @click="toggle('register')">立即注册</div>
-          <van-button round block color="#1baeae" native-type="submit">登录</van-button>
-        </div>
-      </van-form>
+<!-- 通过v-if和v-else指令根据state.type的值切换登录和注册内容的显示。-->
+<!-- 这个是登陆界面-->
+      <!-- 在使用<van-form>组件时，通过添加@submit修饰符来监听表单提交事件。在表单提交后就执行onSubmit这个方法-->
+
+
+
+
+
+        <van-cell-group inset >
+          <van-form @submit="onSubmit">
+            <!-- center用于使得文本内容在 <van-field> 组件中水平居中显示。      -->
+            <!-- 用户名输入框，使用<van-field>组件，绑定state.username作为输入值。 -->
+            <!-- vmodel将表单元素的值与 Vue 实例中state的username进行绑定，实现数据的双向同步。       -->
+            <!-- 该表单字段所在的表单被提交时，后端处理程序可以通过使用"name"作为键来获取该字段的值。       -->
+            <!-- label用于设置在表单字段前显示的字段，用于提示用户这里需要输入用户名       -->
+            <!-- placeholder是占位符文本       -->
+            <!-- :rules用户名字段是必填的，如果用户没有填写用户名，将显示错误消息 '请填写用户名'。       -->
+          <van-field
+              center
+              left-icon="smile-o"
+              right-icon="warning-o"
+              v-model="state.username"
+              name="username"
+              label="用户名"
+              label-width='60'
+              placeholder="用户名"
+              :rules="[{ required: true, message: '请填写用户名' }]"
+          />
+          <van-field
+              label-width='60'
+              left-icon="https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E5%AF%86%E7%A0%81.png"
+              center
+              id='password'
+              v-model="state.password"
+              type="password"
+              name="password"
+              label="密码"
+              placeholder="密码"
+              @click="ChangeBackground_S"
+              :rules="[{ required: true, message: '请填写密码' }]">
+            <template #button >
+              <span class="solts" @click="switchPasswordType">
+                <van-icon name="eye" v-if="state.see" />
+                <van-icon name="closed-eye" v-else />
+              </span>
+            </template>
+          </van-field>
+          <van-field
+              label-width='60'
+              left-icon="https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E9%AA%8C%E8%AF%81%E7%A0%81.png"
+              center
+              label="验证码"
+              placeholder="验证码"
+              v-model="state.verify"
+          >
+            <template #button>
+              <vue-img-verify ref="verifyRef"/>
+            </template>
+          </van-field>
+          <div style="margin: 8px;">
+            <div class="link-register" @click="toggle('register')">还没有账号？立即注册</div>
+            <van-button round block
+                        icon="https://fastly.jsdelivr.net/npm/@vant/assets/user-active.png"
+                        color="linear-gradient(to right, #1baeae, #ff6f00)"
+                        native-type="submit" class="gradient-button">登录</van-button>
+          </div>
+          </van-form>
+        </van-cell-group>
+
+
+
+
     </div>
     <div v-else class="login-body register">
+      <van-cell-group inset size="large">
       <van-form @submit="onSubmit">
         <van-field
+            left-icon="smile-o"
+            right-icon="warning-o"
+            label-width='60'
+            center
           v-model="state.username1"
           name="username1"
           label="用户名"
@@ -56,29 +96,46 @@
           :rules="[{ required: true, message: '请填写用户名' }]"
         />
         <van-field
+            left-icon="https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E5%AF%86%E7%A0%81.png"
+            label-width='60'
+            center
           v-model="state.password1"
           type="password"
           name="password1"
+          id="password1"
           label="密码"
           placeholder="密码"
-          :rules="[{ required: true, message: '请填写密码' }]"
-        />
+            @click="ChangeBackground_S"
+          :rules="[{ required: true, message: '请填写密码' }]">
+        <template #button >
+              <span class="solts" @click="switchPasswordType1">
+                <van-icon name="eye" v-if="state.see" />
+                <van-icon name="closed-eye" v-else />
+              </span>
+        </template>
+          </van-field>
         <van-field
+            left-icon="https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E9%AA%8C%E8%AF%81%E7%A0%81.png"
+            label-width='60'
           center
           clearable
           label="验证码"
-          placeholder="输入验证码"
+          placeholder="验证码"
           v-model="state.verify"
         >
           <template #button>
             <vue-img-verify ref="verifyRef" />
           </template>
         </van-field>
-        <div style="margin: 16px;">
-          <div class="link-login" @click="toggle('login')">已有登录账号</div>
-          <van-button round block color="#1baeae" native-type="submit">注册</van-button>
+        <div style="margin: 8px;">
+          <div class="link-login" @click="toggle('login')">已有账号，直接登录</div>
+          <van-button round block
+                      icon="https://fastly.jsdelivr.net/npm/@vant/assets/user-active.png"
+                      color="linear-gradient(to right, #1baeae, #ff6f00)" native-type="submit">注册</van-button>
         </div>
       </van-form>
+        </van-cell-group>
+
     </div>
   </div>
 </template>
@@ -99,10 +156,45 @@ const state = reactive({
   password1: '',
   type: 'login',
   imgCode: '',
-  verify: ''
+  verify: '',
+  see:0
 })
+const switchPasswordType =() => {
+  state.see=!state.see
+  if (state.see){
+    document.getElementById('password').type='text'
+  }
+  else {
+    document.getElementById('password').type='password'
+  }
+}
+const switchPasswordType1 =() => {
+  state.see=!state.see
+  if (state.see){
+    document.getElementById('password1').type='text'
+  }
+  else {
+    document.getElementById('password1').type='password'
+  }
+}
+const ChangeBackground_S = () => {
+  event.stopPropagation();
+  if (document.getElementById('HomePage').classList.contains('background')) {
+    document.getElementById('HomePage').classList.remove('background')
+    document.getElementById('HomePage').classList.add('background_S')
+  }
+}
 
-// 切换登录和注册两种模式
+const ChangeBackground = () => {
+  if (document.getElementById('HomePage').classList.contains('background_S')){
+    document.getElementById('HomePage').classList.remove('background_S')
+    document.getElementById('HomePage').classList.add('background')
+  }
+  else {
+    return
+  }
+}
+
 const toggle = (v) => {
   state.type = v
   state.verify = ''
@@ -134,15 +226,36 @@ const onSubmit = async (values) => {
   }
 }
 </script>
+<style>
+
+</style>
 
 <style lang="less">
+
+
+
+.background_S {
+  background-image: url('https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E5%AF%8C%E5%A3%AB%E5%B1%B1%E8%A1%97.jpeg');
+  /* 其他样式属性 */
+}
+.background{
+  background-image: url('https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/mate30p2.png');
+}
+
+  .gradient-button {
+
+    color: #FFFFFF;
+    /* 其他样式属性 */
+  }
   .login {
+
     .logo {
       width: 120px;
       height: 120px;
       display: block;
       margin: 80px auto 20px;
     }
+
     .login-body {
       padding: 0 20px;
     }
