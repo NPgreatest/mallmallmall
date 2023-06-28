@@ -1,2 +1,0 @@
-# complete-mall
-golang-Vue
