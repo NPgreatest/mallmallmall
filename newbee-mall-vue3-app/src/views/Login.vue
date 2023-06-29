@@ -18,7 +18,7 @@
             <!-- label用于设置在表单字段前显示的字段，用于提示用户这里需要输入用户名       -->
 <!-- labelwidth用于设置label的宽度           -->
             <!-- placeholder是占位符文本       -->
-            <!-- :rules用户名字段是必填的，如果用户没有填写用户名，将显示错误消息 '请填写用户名'。       -->
+            <!-- :rules规定用户名字段是必填的，如果用户没有填写用户名，将显示错误消息 '请填写用户名'。       -->
           <van-field
               center
               left-icon="smile-o"
@@ -214,14 +214,14 @@ const onSubmit = async (values) => {
 export default {
   data() {
     return {
-      backgroundImage: 'https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/mate30p2.png',
+      backgroundImage: 'https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/result.png',
     };
   },
   methods: {
     changeBackground() {
       // 更新背景图片的 URL
-      if (this.backgroundImage == 'https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E5%AF%8C%E5%A3%AB%E5%B1%B1%E8%A1%97.jpeg') {
-        this.backgroundImage = 'https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/mate30p2.png'
+      if (this.backgroundImage == 'https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/result1.png') {
+        this.backgroundImage = 'https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/result.png'
         document.body.style.backgroundImage = `url(${this.backgroundImage})`;
         document.body.style.backgroundRepeat = 'no-repeat';
         document.body.style.backgroundSize = 'cover';
@@ -229,8 +229,8 @@ export default {
     },
       changeBackground_S(){
         event.stopPropagation();
-        if (this.backgroundImage=='https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/mate30p2.png'){
-          this.backgroundImage = 'https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E5%AF%8C%E5%A3%AB%E5%B1%B1%E8%A1%97.jpeg'
+        if (this.backgroundImage=='https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/result.png'){
+          this.backgroundImage = 'https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/result1.png'
           document.body.style.backgroundImage = `url(${this.backgroundImage})`;
           document.body.style.backgroundRepeat = 'no-repeat';
           document.body.style.backgroundSize = 'cover';
