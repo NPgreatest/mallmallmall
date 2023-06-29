@@ -1,7 +1,5 @@
-
-
-<template>
-  <div class="login background" id="HomePage" @click="ChangeBackground"><!--一个包含登录和注册内容的<div>容器，类名为"login"。-->
+<template >
+  <div class="login background" id="HomePage" @click="changeBackground"><!--一个包含登录和注册内容的<div>容器，类名为"login"。-->
     <s-header :name="type == 'login' ? '登录' : '注册'" :back="'/home'"></s-header>
     <!--页面顶部的标题栏，通过<s-header>组件实现，标题根据type的值动态显示为"注册"或"登录"，如果type的值是login则返回注册
     返回按钮指向"/home"路径。-->
@@ -11,18 +9,14 @@
 <!-- 通过v-if和v-else指令根据state.type的值切换登录和注册内容的显示。-->
 <!-- 这个是登陆界面-->
       <!-- 在使用<van-form>组件时，通过添加@submit修饰符来监听表单提交事件。在表单提交后就执行onSubmit这个方法-->
-
-
-
-
-
         <van-cell-group inset >
           <van-form @submit="onSubmit">
             <!-- center用于使得文本内容在 <van-field> 组件中水平居中显示。      -->
-            <!-- 用户名输入框，使用<van-field>组件，绑定state.username作为输入值。 -->
+<!-- icon用于显示图标           -->
             <!-- vmodel将表单元素的值与 Vue 实例中state的username进行绑定，实现数据的双向同步。       -->
             <!-- 该表单字段所在的表单被提交时，后端处理程序可以通过使用"name"作为键来获取该字段的值。       -->
             <!-- label用于设置在表单字段前显示的字段，用于提示用户这里需要输入用户名       -->
+<!-- labelwidth用于设置label的宽度           -->
             <!-- placeholder是占位符文本       -->
             <!-- :rules用户名字段是必填的，如果用户没有填写用户名，将显示错误消息 '请填写用户名'。       -->
           <van-field
@@ -46,7 +40,7 @@
               name="password"
               label="密码"
               placeholder="密码"
-              @click="ChangeBackground_S"
+              @click="changeBackground_S"
               :rules="[{ required: true, message: '请填写密码' }]">
             <template #button >
               <span class="solts" @click="switchPasswordType">
@@ -105,7 +99,7 @@
           id="password1"
           label="密码"
           placeholder="密码"
-            @click="ChangeBackground_S"
+            @click="changeBackground_S"
           :rules="[{ required: true, message: '请填写密码' }]">
         <template #button >
               <span class="solts" @click="switchPasswordType1">
@@ -137,8 +131,11 @@
         </van-cell-group>
 
     </div>
+    <div> </div>
   </div>
 </template>
+
+
 
 <script setup>
 import { reactive, ref } from 'vue'
@@ -157,8 +154,9 @@ const state = reactive({
   type: 'login',
   imgCode: '',
   verify: '',
-  see:0
+  see:0,
 })
+
 const switchPasswordType =() => {
   state.see=!state.see
   if (state.see){
@@ -177,23 +175,7 @@ const switchPasswordType1 =() => {
     document.getElementById('password1').type='password'
   }
 }
-const ChangeBackground_S = () => {
-  event.stopPropagation();
-  if (document.getElementById('HomePage').classList.contains('background')) {
-    document.getElementById('HomePage').classList.remove('background')
-    document.getElementById('HomePage').classList.add('background_S')
-  }
-}
 
-const ChangeBackground = () => {
-  if (document.getElementById('HomePage').classList.contains('background_S')){
-    document.getElementById('HomePage').classList.remove('background_S')
-    document.getElementById('HomePage').classList.add('background')
-  }
-  else {
-    return
-  }
-}
 
 const toggle = (v) => {
   state.type = v
@@ -226,21 +208,51 @@ const onSubmit = async (values) => {
   }
 }
 </script>
-<style>
 
-</style>
+
+<script>
+export default {
+  data() {
+    return {
+      backgroundImage: 'https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/mate30p2.png',
+    };
+  },
+  methods: {
+    changeBackground() {
+      // 更新背景图片的 URL
+      if (this.backgroundImage == 'https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E5%AF%8C%E5%A3%AB%E5%B1%B1%E8%A1%97.jpeg') {
+        this.backgroundImage = 'https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/mate30p2.png'
+        document.body.style.backgroundImage = `url(${this.backgroundImage})`;
+        document.body.style.backgroundRepeat = 'no-repeat';
+        document.body.style.backgroundSize = 'cover';
+      }
+    },
+      changeBackground_S(){
+        event.stopPropagation();
+        if (this.backgroundImage=='https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/mate30p2.png'){
+          this.backgroundImage = 'https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E5%AF%8C%E5%A3%AB%E5%B1%B1%E8%A1%97.jpeg'
+          document.body.style.backgroundImage = `url(${this.backgroundImage})`;
+          document.body.style.backgroundRepeat = 'no-repeat';
+          document.body.style.backgroundSize = 'cover';
+        }
+
+      }
+      // 应用新的背景图片到整个页面
+
+    },
+  // 当组件挂载时，设置初始的背景图片
+  mounted() {
+    document.body.style.backgroundImage = `url(${this.backgroundImage})`;
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundSize = 'cover';
+  },
+};
+</script>
 
 <style lang="less">
 
 
 
-.background_S {
-  background-image: url('https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E5%AF%8C%E5%A3%AB%E5%B1%B1%E8%A1%97.jpeg');
-  /* 其他样式属性 */
-}
-.background{
-  background-image: url('https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/mate30p2.png');
-}
 
   .gradient-button {
 
