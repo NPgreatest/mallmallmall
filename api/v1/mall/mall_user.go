@@ -28,6 +28,8 @@ func (m *MallUserApi) UserRegister(c *gin.Context) {
 
 func (m *MallUserApi) UserInfoUpdate(c *gin.Context) {
 	var req mallReq.UpdateUserInfoParam
+	_ = c.ShouldBindJSON(&req)
+	//fmt.Println(req)
 	token := c.GetHeader("token")
 	if err := mallUserService.UpdateUserInfo(token, req); err != nil {
 		global.GVA_LOG.Error("更新用户信息失败", zap.Error(err))
