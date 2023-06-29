@@ -16,5 +16,5 @@ type MallGoodsCategory struct {
 }
 
 func (MallGoodsCategory) TableName() string {
-	return "tb_newbee_mall_goods_category"
+	return "oneforallmall_goods_category"
 }

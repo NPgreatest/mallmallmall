@@ -1,16 +1,17 @@
--- ----------------------------
--- Copyright (c) 2019-2021 十三 all rights reserved.
--- ----------------------------
+
+
+create database mall;
+use mall;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
-# Dump of table tb_newbee_mall_admin_user
+# Dump of table OneForAllMall_admin_user
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tb_newbee_mall_admin_user`;
+DROP TABLE IF EXISTS `OneForAllMall_admin_user`;
 
-CREATE TABLE `tb_newbee_mall_admin_user` (
+CREATE TABLE `OneForAllMall_admin_user` (
   `admin_user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '管理员id',
   `login_user_name` varchar(50) NOT NULL COMMENT '管理员登陆名称',
   `login_password` varchar(50) NOT NULL COMMENT '管理员登陆密码',
@@ -19,25 +20,25 @@ CREATE TABLE `tb_newbee_mall_admin_user` (
   PRIMARY KEY (`admin_user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
-LOCK TABLES `tb_newbee_mall_admin_user` WRITE;
-/*!40000 ALTER TABLE `tb_newbee_mall_admin_user` DISABLE KEYS */;
+LOCK TABLES `OneForAllMall_admin_user` WRITE;
+/*!40000 ALTER TABLE `OneForAllMall_admin_user` DISABLE KEYS */;
 
-INSERT INTO `tb_newbee_mall_admin_user` (`admin_user_id`, `login_user_name`, `login_password`, `nick_name`, `locked`)
+INSERT INTO `OneForAllMall_admin_user` (`admin_user_id`, `login_user_name`, `login_password`, `nick_name`, `locked`)
 VALUES
 	(1,'admin','e10adc3949ba59abbe56e057f20f883e','十三',0),
 	(2,'newbee-admin1','e10adc3949ba59abbe56e057f20f883e','新蜂01',0),
 	(3,'newbee-admin2','e10adc3949ba59abbe56e057f20f883e','新蜂02',0);
 
-/*!40000 ALTER TABLE `tb_newbee_mall_admin_user` ENABLE KEYS */;
+/*!40000 ALTER TABLE `OneForAllMall_admin_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table tb_newbee_mall_carousel
+# Dump of table OneForAllMall_carousel
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tb_newbee_mall_carousel`;
+DROP TABLE IF EXISTS `OneForAllMall_carousel`;
 
-CREATE TABLE `tb_newbee_mall_carousel` (
+CREATE TABLE `OneForAllMall_carousel` (
   `carousel_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '首页轮播图主键id',
   `carousel_url` varchar(100) NOT NULL DEFAULT '' COMMENT '轮播图',
   `redirect_url` varchar(100) NOT NULL DEFAULT '''##''' COMMENT '点击后的跳转地址(默认不跳转)',
@@ -50,10 +51,10 @@ CREATE TABLE `tb_newbee_mall_carousel` (
   PRIMARY KEY (`carousel_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
-LOCK TABLES `tb_newbee_mall_carousel` WRITE;
-/*!40000 ALTER TABLE `tb_newbee_mall_carousel` DISABLE KEYS */;
+LOCK TABLES `OneForAllMall_carousel` WRITE;
+/*!40000 ALTER TABLE `OneForAllMall_carousel` DISABLE KEYS */;
 
-INSERT INTO `tb_newbee_mall_carousel` (`carousel_id`, `carousel_url`, `redirect_url`, `carousel_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`)
+INSERT INTO `OneForAllMall_carousel` (`carousel_id`, `carousel_url`, `redirect_url`, `carousel_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`)
 VALUES
 	(1,'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner2.jpg','##',200,1,'2019-08-23 17:50:45',0,'2019-11-10 00:23:01',0),
 	(2,'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner1.png','https://juejin.im/book/5da2f9d4f265da5b81794d48/section/5da2f9d6f265da5b794f2189',13,0,'2019-11-29 00:00:00',0,'2019-11-29 00:00:00',0),
@@ -62,16 +63,16 @@ VALUES
 	(6,'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner1.png','##',101,1,'2019-09-19 23:37:40',0,'2019-11-07 00:15:52',0),
 	(7,'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/banner2.png','##',99,1,'2019-09-19 23:37:58',0,'2019-10-22 00:15:01',0);
 
-/*!40000 ALTER TABLE `tb_newbee_mall_carousel` ENABLE KEYS */;
+/*!40000 ALTER TABLE `OneForAllMall_carousel` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table tb_newbee_mall_goods_category
+# Dump of table OneForAllMall_goods_category
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tb_newbee_mall_goods_category`;
+DROP TABLE IF EXISTS `OneForAllMall_goods_category`;
 
-CREATE TABLE `tb_newbee_mall_goods_category` (
+CREATE TABLE `OneForAllMall_goods_category` (
   `category_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '分类id',
   `category_level` tinyint(4) NOT NULL DEFAULT '0' COMMENT '分类级别(1-一级分类 2-二级分类 3-三级分类)',
   `parent_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '父分类id',
@@ -85,10 +86,10 @@ CREATE TABLE `tb_newbee_mall_goods_category` (
   PRIMARY KEY (`category_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
-LOCK TABLES `tb_newbee_mall_goods_category` WRITE;
-/*!40000 ALTER TABLE `tb_newbee_mall_goods_category` DISABLE KEYS */;
+LOCK TABLES `OneForAllMall_goods_category` WRITE;
+/*!40000 ALTER TABLE `OneForAllMall_goods_category` DISABLE KEYS */;
 
-INSERT INTO `tb_newbee_mall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`)
+INSERT INTO `OneForAllMall_goods_category` (`category_id`, `category_level`, `parent_id`, `category_name`, `category_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`)
 VALUES
 	(15,1,0,'家电 数码 手机',100,0,'2019-09-11 18:45:40',0,'2019-11-20 23:18:13',0),
 	(16,1,0,'女装 男装 穿搭',99,0,'2019-09-11 18:46:07',0,'2019-11-20 23:18:20',0),
@@ -193,16 +194,16 @@ VALUES
 	(115,2,65,'玩具',0,0,'2019-11-28 20:24:58',0,'2019-11-28 20:24:58',0),
 	(116,3,115,'机器人',0,0,'2019-11-28 20:25:16',0,'2019-11-28 20:25:16',0);
 
-/*!40000 ALTER TABLE `tb_newbee_mall_goods_category` ENABLE KEYS */;
+/*!40000 ALTER TABLE `OneForAllMall_goods_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table tb_newbee_mall_goods_info
+# Dump of table OneForAllMall_goods_info
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tb_newbee_mall_goods_info`;
+DROP TABLE IF EXISTS `OneForAllMall_goods_info`;
 
-CREATE TABLE `tb_newbee_mall_goods_info` (
+CREATE TABLE `OneForAllMall_goods_info` (
   `goods_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品表主键id',
   `goods_name` varchar(200) NOT NULL DEFAULT '' COMMENT '商品名',
   `goods_intro` varchar(200) NOT NULL DEFAULT '' COMMENT '商品简介',
@@ -222,10 +223,10 @@ CREATE TABLE `tb_newbee_mall_goods_info` (
   PRIMARY KEY (`goods_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
-LOCK TABLES `tb_newbee_mall_goods_info` WRITE;
-/*!40000 ALTER TABLE `tb_newbee_mall_goods_info` DISABLE KEYS */;
+LOCK TABLES `OneForAllMall_goods_info` WRITE;
+/*!40000 ALTER TABLE `OneForAllMall_goods_info` DISABLE KEYS */;
 
-INSERT INTO `tb_newbee_mall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`)
+INSERT INTO `OneForAllMall_goods_info` (`goods_id`, `goods_name`, `goods_intro`, `goods_category_id`, `goods_cover_img`, `goods_carousel`, `goods_detail_content`, `original_price`, `selling_price`, `stock_num`, `tag`, `goods_sell_status`, `create_user`, `create_time`, `update_user`, `update_time`)
 VALUES
 	(10003,'无印良品 MUJI 基础润肤化妆水','滋润型 400ml',0,'/goods-img/87446ec4-e534-4b49-9f7d-9bea34665284.jpg','/goods-img/87446ec4-e534-4b49-9f7d-9bea34665284.jpg','商品介绍加载中...',100,100,1000,'',1,0,'2019-09-18 13:18:47',0,'2019-09-18 13:18:47'),
 	(10004,'无印良品 MUJI 柔和洁面泡沫','120g',0,'/goods-img/45854bdd-2ca5-423c-a609-3d336d9322b4.jpg','/goods-img/45854bdd-2ca5-423c-a609-3d336d9322b4.jpg','商品介绍加载中...',45,45,999,'',0,0,'2019-09-18 13:18:47',0,'2019-09-18 13:18:47'),
@@ -803,16 +804,16 @@ VALUES
 	(10901,'华为mate x 5G 折叠屏手机(新品)','科技新物种，定义未来',46,'/upload/20191124_18032027.png','http://localhost:28089/upload/20191124_18032027.png','<img src=\"http://localhost:28089/upload/20191124_18023057.png\" alt=\"\" />',59999,19998,100,'前所未见，惊世首演',0,0,'2019-11-24 17:57:18',0,'2019-11-27 00:16:03'),
 	(10902,'华为 HUAWEI P40 冰霜银 全网通5G手机','麒麟990 5G SoC芯片 5000万超感知徕卡三摄 30倍数字变焦 6GB+128GB',46,'https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/p40-silver.png','https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/p40-silver.png','<img src=\"https://newbee-mall.oss-cn-beijing.aliyuncs.com/images/p40-detail.jpg\" alt=\"\" />',4399,4299,2000,'超感知影像',0,0,'2020-03-27 10:07:37',0,'2020-05-15 17:18:30');
 
-/*!40000 ALTER TABLE `tb_newbee_mall_goods_info` ENABLE KEYS */;
+/*!40000 ALTER TABLE `OneForAllMall_goods_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table tb_newbee_mall_index_config
+# Dump of table OneForAllMall_index_config
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tb_newbee_mall_index_config`;
+DROP TABLE IF EXISTS `OneForAllMall_index_config`;
 
-CREATE TABLE `tb_newbee_mall_index_config` (
+CREATE TABLE `OneForAllMall_index_config` (
   `config_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '首页配置项主键id',
   `config_name` varchar(50) NOT NULL DEFAULT '' COMMENT '显示字符(配置搜索时不可为空，其他可为空)',
   `config_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1-搜索框热搜 2-搜索下拉框热搜 3-(首页)热销商品 4-(首页)新品上线 5-(首页)为你推荐',
@@ -827,10 +828,10 @@ CREATE TABLE `tb_newbee_mall_index_config` (
   PRIMARY KEY (`config_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `tb_newbee_mall_index_config` WRITE;
-/*!40000 ALTER TABLE `tb_newbee_mall_index_config` DISABLE KEYS */;
+LOCK TABLES `OneForAllMall_index_config` WRITE;
+/*!40000 ALTER TABLE `OneForAllMall_index_config` DISABLE KEYS */;
 
-INSERT INTO `tb_newbee_mall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`)
+INSERT INTO `OneForAllMall_index_config` (`config_id`, `config_name`, `config_type`, `goods_id`, `redirect_url`, `config_rank`, `is_deleted`, `create_time`, `create_user`, `update_time`, `update_user`)
 VALUES
 	(1,'热销商品 iPhone XR',3,10284,'##',10,0,'2019-09-18 17:04:56',0,'2019-09-18 17:04:56',0),
 	(2,'热销商品 华为 Mate20',3,10779,'##',100,0,'2019-09-18 17:05:27',0,'2019-09-18 17:05:27',0),
@@ -862,15 +863,15 @@ VALUES
 	(28,'rqwer',3,23,'##',12,1,'2019-10-25 00:41:33',0,'2019-10-25 00:44:16',0),
 	(29,'新品上线 华为 matex',4,10901,'##',12,0,'2019-12-14 15:53:34',0,'2019-12-14 15:53:34',0);
 
-/*!40000 ALTER TABLE `tb_newbee_mall_index_config` ENABLE KEYS */;
+/*!40000 ALTER TABLE `OneForAllMall_index_config` ENABLE KEYS */;
 UNLOCK TABLES;
 
-# Dump of table tb_newbee_mall_order
+# Dump of table OneForAllMall_order
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tb_newbee_mall_order`;
+DROP TABLE IF EXISTS `OneForAllMall_order`;
 
-CREATE TABLE `tb_newbee_mall_order` (
+CREATE TABLE `OneForAllMall_order` (
   `order_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单表主键id',
   `order_no` varchar(20) NOT NULL DEFAULT '' COMMENT '订单号',
   `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户主键id',
@@ -886,12 +887,12 @@ CREATE TABLE `tb_newbee_mall_order` (
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-# Dump of table tb_newbee_mall_order_address
+# Dump of table OneForAllMall_order_address
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tb_newbee_mall_order_address`;
+DROP TABLE IF EXISTS `OneForAllMall_order_address`;
 
-CREATE TABLE `tb_newbee_mall_order_address` (
+CREATE TABLE `OneForAllMall_order_address` (
   `order_id` bigint(20) NOT NULL,
   `user_name` varchar(30) NOT NULL DEFAULT '' COMMENT '收货人姓名',
   `user_phone` varchar(11) NOT NULL DEFAULT '' COMMENT '收货人手机号',
@@ -902,12 +903,12 @@ CREATE TABLE `tb_newbee_mall_order_address` (
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单收货地址关联表';
 
-# Dump of table tb_newbee_mall_order_item
+# Dump of table OneForAllMall_order_item
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tb_newbee_mall_order_item`;
+DROP TABLE IF EXISTS `OneForAllMall_order_item`;
 
-CREATE TABLE `tb_newbee_mall_order_item` (
+CREATE TABLE `OneForAllMall_order_item` (
   `order_item_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '订单关联购物项主键id',
   `order_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '订单主键id',
   `goods_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '关联商品id',
@@ -919,12 +920,12 @@ CREATE TABLE `tb_newbee_mall_order_item` (
   PRIMARY KEY (`order_item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-# Dump of table tb_newbee_mall_shopping_cart_item
+# Dump of table OneForAllMall_shopping_cart_item
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tb_newbee_mall_shopping_cart_item`;
+DROP TABLE IF EXISTS `OneForAllMall_shopping_cart_item`;
 
-CREATE TABLE `tb_newbee_mall_shopping_cart_item` (
+CREATE TABLE `OneForAllMall_shopping_cart_item` (
   `cart_item_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '购物项主键id',
   `user_id` bigint(20) NOT NULL COMMENT '用户主键id',
   `goods_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '关联商品id',
@@ -935,12 +936,12 @@ CREATE TABLE `tb_newbee_mall_shopping_cart_item` (
   PRIMARY KEY (`cart_item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-# Dump of table tb_newbee_mall_user
+# Dump of table OneForAllMall_user
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tb_newbee_mall_user`;
+DROP TABLE IF EXISTS `OneForAllMall_user`;
 
-CREATE TABLE `tb_newbee_mall_user` (
+CREATE TABLE `OneForAllMall_user` (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户主键id',
   `nick_name` varchar(50) NOT NULL DEFAULT '' COMMENT '用户昵称',
   `login_name` varchar(11) NOT NULL DEFAULT '' COMMENT '登陆名称(默认为手机号)',
@@ -952,24 +953,24 @@ CREATE TABLE `tb_newbee_mall_user` (
   PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
-LOCK TABLES `tb_newbee_mall_user` WRITE;
-/*!40000 ALTER TABLE `tb_newbee_mall_user` DISABLE KEYS */;
+LOCK TABLES `OneForAllMall_user` WRITE;
+/*!40000 ALTER TABLE `OneForAllMall_user` DISABLE KEYS */;
 
-INSERT INTO `tb_newbee_mall_user` (`user_id`, `nick_name`, `login_name`, `password_md5`, `introduce_sign`, `is_deleted`, `locked_flag`, `create_time`)
+INSERT INTO `OneForAllMall_user` (`user_id`, `nick_name`, `login_name`, `password_md5`, `introduce_sign`, `is_deleted`, `locked_flag`, `create_time`)
 VALUES
 	(1,'十三','13700002703','e10adc3949ba59abbe56e057f20f883e','我不怕千万人阻挡，只怕自己投降',0,0,'2020-05-22 08:44:57'),
 	(6,'陈尼克','13711113333','e10adc3949ba59abbe56e057f20f883e','测试用户陈尼克',0,0,'2020-05-22 08:44:57');
 
-/*!40000 ALTER TABLE `tb_newbee_mall_user` ENABLE KEYS */;
+/*!40000 ALTER TABLE `OneForAllMall_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table tb_newbee_mall_user_address
+# Dump of table OneForAllMall_user_address
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tb_newbee_mall_user_address`;
+DROP TABLE IF EXISTS `OneForAllMall_user_address`;
 
-CREATE TABLE `tb_newbee_mall_user_address` (
+CREATE TABLE `OneForAllMall_user_address` (
   `address_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户主键id',
   `user_name` varchar(30) NOT NULL DEFAULT '' COMMENT '收货人姓名',
@@ -985,12 +986,12 @@ CREATE TABLE `tb_newbee_mall_user_address` (
   PRIMARY KEY (`address_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='收货地址表';
 
-# Dump of table tb_newbee_mall_user_token
+# Dump of table OneForAllMall_user_token
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tb_newbee_mall_user_token`;
+DROP TABLE IF EXISTS `OneForAllMall_user_token`;
 
-CREATE TABLE `tb_newbee_mall_user_token` (
+CREATE TABLE `OneForAllMall_user_token` (
   `user_id` bigint(20) NOT NULL COMMENT '用户主键id',
   `token` varchar(32) NOT NULL COMMENT 'token值(32位字符串)',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
@@ -999,12 +1000,12 @@ CREATE TABLE `tb_newbee_mall_user_token` (
   UNIQUE KEY `uq_token` (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-# Dump of table tb_newbee_mall_user_token
+# Dump of table OneForAllMall_user_token
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `tb_newbee_mall_admin_user_token`;
+DROP TABLE IF EXISTS `OneForAllMall_admin_user_token`;
 
-CREATE TABLE `tb_newbee_mall_admin_user_token` (
+CREATE TABLE `OneForAllMall_admin_user_token` (
   `admin_user_id` bigint(20) NOT NULL COMMENT '用户主键id',
   `token` varchar(32) NOT NULL COMMENT 'token值(32位字符串)',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
@@ -1013,9 +1014,3 @@ CREATE TABLE `tb_newbee_mall_admin_user_token` (
   UNIQUE KEY `uq_token` (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
