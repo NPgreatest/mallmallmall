@@ -14,47 +14,10 @@ type RulesMap map[string]Rules
 
 var CustomizeMap = make(map[string]Rules)
 
-//@author: [piexlmax](https://github.com/piexlmax)
-//@function: RegisterRule
-//@description: 注册自定义规则方案建议在路由初始化层即注册
-//@param: key string, rule Rules
-//@return: err error
-
-func RegisterRule(key string, rule Rules) (err error) {
-	if CustomizeMap[key] != nil {
-		return errors.New(key + "已注册,无法重复注册")
-	} else {
-		CustomizeMap[key] = rule
-		return nil
-	}
-}
-
-//@author: [piexlmax](https://github.com/piexlmax)
-//@function: NotEmpty
 //@description: 非空 不能为其对应类型的0值
-//@return: string
 
 func NotEmpty() string {
 	return "notEmpty"
-}
-
-//@author: [zooqkl](https://github.com/zooqkl)
-//@function: RegexpMatch
-//@description: 正则校验 校验输入项是否满足正则表达式
-//@param:  rule string
-//@return: string
-func RegexpMatch(rule string) string {
-	return "regexp=" + rule
-}
-
-//@author: [piexlmax](https://github.com/piexlmax)
-//@function: Lt
-//@description: 小于入参(<) 如果为string array Slice则为长度比较 如果是 int uint float 则为数值比较
-//@param: mark string
-//@return: string
-
-func Lt(mark string) string {
-	return "lt=" + mark
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)
@@ -73,20 +36,6 @@ func Le(mark string) string {
 //@param: mark string
 //@return: string
 
-func Eq(mark string) string {
-	return "eq=" + mark
-}
-
-//@author: [piexlmax](https://github.com/piexlmax)
-//@function: Ne
-//@description: 不等于入参(!=)  如果为string array Slice则为长度比较 如果是 int uint float 则为数值比较
-//@param: mark string
-//@return: string
-
-func Ne(mark string) string {
-	return "ne=" + mark
-}
-
 //@author: [piexlmax](https://github.com/piexlmax)
 //@function: Ge
 //@description: 大于等于入参(>=) 如果为string array Slice则为长度比较 如果是 int uint float 则为数值比较
@@ -103,17 +52,7 @@ func Ge(mark string) string {
 //@param: mark string
 //@return: string
 
-func Gt(mark string) string {
-	return "gt=" + mark
-}
-
-//
-//@author: [piexlmax](https://github.com/piexlmax)
-//@function: Verify
-//@description: 校验方法
-//@param: st interface{}, roleMap Rules(入参实例，规则map)
-//@return: err error
-
+// @description: 校验方法
 func Verify(st interface{}, roleMap Rules) (err error) {
 	compareMap := map[string]bool{
 		"lt": true,

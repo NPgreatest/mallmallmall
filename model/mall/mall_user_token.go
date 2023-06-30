@@ -15,5 +15,5 @@ type MallUserToken struct {
 
 // TableName MallUserToken 表名
 func (MallUserToken) TableName() string {
-	return "tb_newbee_mall_user_token"
+	return "oneforallmall_user_token"
 }

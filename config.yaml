@@ -22,7 +22,7 @@ system:
 zap:
   level: info
   format: console
-  prefix: '[newbee_mall]'
+  prefix: '[OneForAll_mall]'
   director: log
   showLine: true
   encode-level: LowercaseColorLevelEncoder

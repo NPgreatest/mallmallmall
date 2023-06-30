@@ -18,5 +18,5 @@ type MallShoppingCartItem struct {
 
 // TableName MallShoppingCartItem 表名
 func (MallShoppingCartItem) TableName() string {
-	return "tb_newbee_mall_shopping_cart_item"
+	return "oneforallmall_shopping_cart_item"
 }

@@ -7,11 +7,7 @@ import (
 	"os"
 )
 
-//@author: [SliverHorn](https://github.com/SliverHorn)
-//@function: GetWriteSyncer
-//@description: zap logger中加入file-rotatelogs
-//@return: zapcore.WriteSyncer, error
-
+// @description: zap logger中加入file-rotatelogs
 func GetWriteSyncer(file string) zapcore.WriteSyncer {
 	lumberJackLogger := &lumberjack.Logger{
 		Filename:   file, //日志文件的位置

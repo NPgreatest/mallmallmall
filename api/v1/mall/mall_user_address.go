@@ -34,7 +34,6 @@ func (m *MallUserAddressApi) SaveUserAddress(c *gin.Context) {
 		response.FailWithMessage("创建失败:"+err.Error(), c)
 	}
 	response.OkWithMessage("创建成功", c)
-
 }
 
 func (m *MallUserAddressApi) UpdateMallUserAddress(c *gin.Context) {
