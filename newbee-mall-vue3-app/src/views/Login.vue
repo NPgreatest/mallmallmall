@@ -26,12 +26,12 @@
               v-model="state.username"
               name="username"
               label="用户名"
-              label-width='60'
+              label-width='50'
               placeholder="用户名"
               :rules="[{ required: true, message: '请填写用户名' }]"
           />
           <van-field
-              label-width='60'
+              label-width='50'
               left-icon="https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E5%AF%86%E7%A0%81.png"
               center
               id='password'
@@ -50,7 +50,7 @@
             </template>
           </van-field>
           <van-field
-              label-width='60'
+              label-width='50'
               left-icon="https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E9%AA%8C%E8%AF%81%E7%A0%81.png"
               center
               label="验证码"
@@ -81,7 +81,7 @@
         <van-field
             left-icon="smile-o"
             right-icon="warning-o"
-            label-width='60'
+            label-width='50'
             center
           v-model="state.username1"
           name="username1"
@@ -91,7 +91,7 @@
         />
         <van-field
             left-icon="https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E5%AF%86%E7%A0%81.png"
-            label-width='60'
+            label-width='50'
             center
           v-model="state.password1"
           type="password"
@@ -110,7 +110,7 @@
           </van-field>
         <van-field
             left-icon="https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E9%AA%8C%E8%AF%81%E7%A0%81.png"
-            label-width='60'
+            label-width='50'
           center
           clearable
           label="验证码"
