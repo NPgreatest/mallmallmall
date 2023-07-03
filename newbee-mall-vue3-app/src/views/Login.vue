@@ -78,7 +78,7 @@
             <van-button round block
                         icon="https://fastly.jsdelivr.net/npm/@vant/assets/user-active.png"
                         color="linear-gradient(to right, #1baeae, #ff6f00)"
-                        native-type="submit" class="gradient-button">登录</van-button>
+                        native-type="submit">登录</van-button>
           </div>
           </van-form>
         </van-cell-group>
@@ -285,11 +285,7 @@ export default {
 
 
 
-  .gradient-button {
 
-    color: #FFFFFF;
-    /* 其他样式属性 */
-  }
   .login {
 
     .logo {
