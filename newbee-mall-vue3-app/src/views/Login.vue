@@ -30,6 +30,11 @@
               placeholder="用户名"
               :rules="[{ required: true, message: '请填写用户名' }]"
           />
+<!--      center 属性将标签和输入框内容居中对齐。-->
+<!--            v-model 指令用于实现数据的双向绑定，将输入框中的值绑定到 Vue 实例中的 state.password 属性上。
+            type="password" 设置输入框的类型为密码，以隐藏用户输入的敏感信息。
+            name 属性指定了字段的名称，在表单提交时会作为参数名发送给服务器。
+            @click 监听点击事件，当点击输入框时会触发名为 "changeBackground_S" 的方法。-->
           <van-field
               label-width='50'
               left-icon="https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E5%AF%86%E7%A0%81.png"
@@ -42,6 +47,10 @@
               placeholder="密码"
               @click="changeBackground_S"
               :rules="[{ required: true, message: '请填写密码' }]">
+<!--            <template #button> 指定了一个插槽的名称为 "button"，用于自定义按钮的内容。
+              <span class="solts" @click="switchPasswordType"> 定义了一个 <span> 元素，点击该元素会触发名为 "switchPasswordType" 的方法。
+                <van-icon name="eye" v-if="state.see" /> 使用 Vant UI 提供的图标组件 <van-icon>，根据 state.see 的值显示不同的图标，
+                  如果 state.see 为真则显示 "eye" 图标，否则显示 "closed-eye" 图标。-->
             <template #button >
               <span class="solts" @click="switchPasswordType">
                 <van-icon name="eye" v-if="state.see" />
@@ -49,6 +58,7 @@
               </span>
             </template>
           </van-field>
+<!--            输入框中的内容与state.verify相绑定-->
           <van-field
               label-width='50'
               left-icon="https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/%E9%AA%8C%E8%AF%81%E7%A0%81.png"
@@ -57,9 +67,11 @@
               placeholder="验证码"
               v-model="state.verify"
           >
+<!--     包含一个vue-img-verify组件，并通过ref属性设置了一个引用名称verifyRef,稍后可以通过这个引用名称来访问这个组件的属性和方法。-->
             <template #button>
               <vue-img-verify ref="verifyRef"/>
             </template>
+
           </van-field>
           <div style="margin: 8px;">
             <div class="link-register" @click="toggle('register')">还没有账号？立即注册</div>
@@ -145,6 +157,8 @@ import { login, register } from '@/service/user'
 import { setLocal } from '@/common/js/utils'
 import md5 from 'js-md5'
 import { showSuccessToast, showFailToast } from 'vant'
+/*通过Vue的Composition API创建一个响应式引用，初始值为null。这个引用可以用来访问vue-img-verify组件。
+* ref函数接收一个参数，即初始值，并返回一个包含两个属性的对象：.value和.valueOf()。*/
 const verifyRef = ref(null)
 const state = reactive({
   username: '',
@@ -176,20 +190,35 @@ const switchPasswordType1 =() => {
   }
 }
 
-
+/*执行toggle之后，state.type的值变为v，state.verify的值变为空*/
 const toggle = (v) => {
   state.type = v
   state.verify = ''
 }
 
 // 提交登录或注册表单
+/*定义了一个名为onSubmit的异步函数，这个函数接受一个参数values,用来处理表单提交。这里就是对应的van-form的表单中的数据*/
+/*state.imgCode = verifyRef.value.state.imgCode || '' 这行代码从vue-img-verify组件中获取imgCode
+，图像验证码的一部分，并将其存储在state.imgCode中。如果imgCode不存在或者是假值，则将空字符串存储在state.imgCode中。*/
+/*接下来的代码块检查state.verify和state.imgCode是否相等，不区分大小写。如果不相等，调用showFailToast('验证码有误')来显示一个失败的提示信息，然后退出函数。*/
+/*如果验证码验证成功，该函数将检查state.type的值。如果state.type等于'login'，则执行登录逻辑：
+a. 使用await关键字等待login函数的结果，该函数以包含loginName和加密的passwordMd5的对象作为参数，是一个发起HTTP请求的函数，用来验证用户名和密码。
+b. 使用setLocal函数将服务器返回的数据存储在本地。
+c. 重定向用户到主页，并刷新页面。这是为了确保在其他地方的axios.js文件中的token被重置。使用window.location.href = '/'，它会将当前页面的URL重定向到网站的根路径。
+如果state.type不等于'login'，则执行注册逻辑：
+a. 使用await关键字等待register函数的结果，该函数以包含loginName和password的对象作为参数,这是一个发起HTTP请求的函数，用来注册新用户。
+b. 显示一个成功的提示信息，通过调用showSuccessToast('注册成功')。
+c. 将state.type设置为'login'，并清空state.verify。
+*/
 const onSubmit = async (values) => {
   state.imgCode = verifyRef.value.state.imgCode || ''
   if (state.verify.toLowerCase() != state.imgCode.toLowerCase()) {
     showFailToast('验证码有误')
     return
   }
+
   if (state.type == 'login') {
+    /*这里使用的是解构赋值语法，login返回的是一个对象，这里从其中提取data属性*/
     const { data } = await login({
       "loginName": values.username,
       "passwordMd5": md5(values.password)
@@ -223,7 +252,9 @@ export default {
       if (this.backgroundImage == 'https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/result1.png') {
         this.backgroundImage = 'https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/result.png'
         document.body.style.backgroundImage = `url(${this.backgroundImage})`;
+        /*背景图片将不会在水平或垂直方向上重复显示。*/
         document.body.style.backgroundRepeat = 'no-repeat';
+        /*当设置为'cover'时，背景图片会被缩放并且保持纵横比，以覆盖整个元素的背景区域。如果图片的宽高比与元素的宽高比不一致，图片可能会被裁剪。*/
         document.body.style.backgroundSize = 'cover';
       }
     },
@@ -240,7 +271,7 @@ export default {
       // 应用新的背景图片到整个页面
 
     },
-  // 当组件挂载时，设置初始的背景图片
+  /*生命周期钩子函数，在组件挂载时被调用。在这个例子中，它用于在组件挂载时设置初始的背景图片样式。*/
   mounted() {
     document.body.style.backgroundImage = `url(${this.backgroundImage})`;
     document.body.style.backgroundRepeat = 'no-repeat';
