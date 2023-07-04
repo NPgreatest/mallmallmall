@@ -4,18 +4,20 @@
   <div class="product-detail">
     <s-header :name="'商品详情'"></s-header>
     <div class="detail-content">
-      <div class="detail-swipe-wrap">
-        <van-swipe class="my-swipe" indicator-color="#1baeae">
-          <van-swipe-item v-for="(item, index) in state.detail.goodsCarouselList" :key="index">
-            <img :src="item" alt="">
-          </van-swipe-item>
-        </van-swipe>
-      </div>
+<!--      <div class="detail-swipe-wrap">-->
+<!--        <van-swipe class="my-swipe" indicator-color="#1baeae">-->
+<!--          <van-swipe-item v-for="(item, index) in state.detail.goodsCoverImg" :key="index">-->
+          <img class="center-and-resize" :src="state.detail.goodsCoverImg" alt="">
+
+<!--          </van-swipe-item>-->
+<!--        </van-swipe>-->
+<!--      </div>-->
       <div class="product-info">
         <div class="product-title">
           {{ state.detail.goodsName || '' }}
         </div>
         <div class="product-desc">免邮费 顺丰快递</div>
+        <div class="product-detail">{{state.detail.tag}}</div>
         <div class="product-price">
           <span>¥{{ state.detail.sellingPrice || '' }}</span>
           <!-- <span>库存203</span> -->
@@ -63,6 +65,7 @@ onMounted(async () => {
   const { id } = route.params
   const { data } = await getDetail(id)
   data.goodsCarouselList = data.goodsCarouselList.map(i => prefix(i))
+  console.log(data)
   state.detail = data
   cart.updateCart()
 })
@@ -186,4 +189,13 @@ const goToCart = async () => {
       background: linear-gradient(to right, #0dc3c3, #098888)
     }
   }
+
+
+  .center-and-resize {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+  }
+
 </style>
