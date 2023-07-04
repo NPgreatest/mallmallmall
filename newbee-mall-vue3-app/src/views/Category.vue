@@ -34,14 +34,28 @@
             ></li>
           </ul>
         </list-scroll>
-
+<!--<div class="search-content"> - 创建一个 div 容器，并设置其类名为 search-content。
+<list-scroll :scroll-data="state.categoryData"> - 使用自定义组件 list-scroll。
+它有一个绑定的属性 scroll-data，其值设置为 state.categoryData。
+<div class="swiper-container"> - 创建一个 div 容器用于包含 Swiper 轮播。
+<div class="swiper-wrapper"> - 内部容器，用于包裹轮播项。
+<template v-for="(category, index) in state.categoryData"> - 使用 Vue 的 v-for 指令遍历 state.categoryData 数组。
+对于数组中的每个元素，它创建一个模板。category 变量包含当前分类数据，而 index 包含当前索引。
+<div class="swiper-slide" v-if="state.currentIndex == category.categoryId" :key="index"> - 这是轮播的单个滑块。
+只有当 state.currentIndex 等于 category.categoryId 时，此滑块才会显示。
+<div class="category-list" v-for="(products, index) in category.secondLevelCategoryVOS" :key="index">
+一个嵌套的 v-for 循环，用于遍历每个分类中的二级分类数据。
+<p class="catogory-title">{{products.categoryName}}</p> - 显示二级分类的名称。
+<div class="product-item" v-for="(product, index) in products.thirdLevelCategoryVOS" :key="index" @click="selectProduct(product)">
+ - 再次嵌套的 v-for 循环，这次用于遍历三级分类数据，也就是产品。
+ <p v-text="product.categoryName" class="product-title"></p> - 显示产品的名称。
+-->
         <div class="search-content">
           <list-scroll :scroll-data="state.categoryData" >
             <div class="swiper-container">
               <div class="swiper-wrapper">
                 <template v-for="(category, index) in state.categoryData">
                   <div class="swiper-slide" v-if="state.currentIndex == category.categoryId" :key="index">
-                    <!-- <img class="category-main-img" :src="category.mainImgUrl" v-if="category.mainImgUrl"/> -->
                     <div class="category-list" v-for="(products, index) in category.secondLevelCategoryVOS" :key="index">
                       <p class="catogory-title">{{products.categoryName}}</p>
                       <div class="product-item" v-for="(product, index) in products.thirdLevelCategoryVOS" :key="index" @click="selectProduct(product)">
@@ -74,25 +88,36 @@ const state = reactive({
   categoryData: [],
   currentIndex: 15
 })
-
+/*展示当前浏览器窗口的可视高度
+* searchWrap.value
+*
+* */
 onMounted(async () => {
+/*声明一个变量$screenHeight，并将其设置为document.documentElement.clientHeight，即当前浏览器窗口的可视高度。*/
   let $screenHeight = document.documentElement.clientHeight
   console.log('searchWrap.value', searchWrap.value)
+  /*将searchWrap.value.style.height设置为$screenHeight - 100 + 'px'，即浏览器窗口可视高度减去100像素，并以像素为单位设置给searchWrap元素的高度属性。*/
   searchWrap.value.style.height = $screenHeight - 100 + 'px'
   showLoadingToast('加载中...')
+  /*getCategory()中解构获得data属性*/
   const { data } = await getCategory()
   closeToast()
+  /*将data赋值给state.categoryData*/
   state.categoryData = data
 })
 
 const goHome = () => {
   router.push({ path: 'home' })
 }
-
+/*当前的选中项*/
 const selectMenu = (index) => {
   state.currentIndex = index
 }
-
+/*使用console.log打印出item.categoryId的值。item是一个对象，它包含一个名为categoryId的属性。
+这行代码的目的是在控制台输出item.categoryId的值，以便进行调试或查看输出结果。
+使用router.push方法进行页面导航。它接受一个对象作为参数，该对象包含导航的相关信息。在这里，它将导航到'/product-list'路径，
+并通过query属性传递了一个参数categoryId，值为item.categoryId，表示在导航到'/product-list'页面时，将附带一个查询参数categoryId，
+其值为item.categoryId。*/
 const selectProduct = (item) => {
   console.log('item', item.categoryId)
   router.push({ path: '/product-list', query: { categoryId: item.categoryId } })

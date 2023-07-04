@@ -2,6 +2,7 @@
 
 <template>
   <div class="create-order">
+<!--    -->
     <s-header :name="'生成订单'" @callback="deleteLocal"></s-header>
     <div class="address-wrap">
       <div class="name" @click="goTo">
@@ -15,13 +16,16 @@
     </div>
     <div class="good">
       <div class="good-item" v-for="(item, index) in state.cartList" :key="index">
+<!--        动态地将item.goodsCoverImg属性的值绑定到<img>元素的src属性上。-->
         <div class="good-img"><img :src="$filters.prefix(item.goodsCoverImg)" alt=""></div>
         <div class="good-desc">
           <div class="good-title">
+<!--            商品的名称和数量-->
             <span>{{ item.goodsName }}</span>
             <span>x{{ item.goodsCount }}</span>
           </div>
           <div class="good-btn">
+<!--            商品的单价-->
             <div class="price">¥{{ item.sellingPrice }}</div>
           </div>
         </div>
@@ -34,6 +38,8 @@
       </div>
       <van-button @click="handleCreateOrder" class="pay-btn" color="#1baeae" type="primary" block>生成订单</van-button>
     </div>
+<!--    弹出窗口，在点击生成订单按钮后会弹出-->
+<!--    监听close事件，如果发生了close事件，那么执行close函数，转到我的订单页面-->
     <van-popup
       closeable
       :close-on-click-overlay="false"
@@ -100,9 +106,13 @@ const deleteLocal = () => {
 const handleCreateOrder = async () => {
   const params = {
     addressId: state.address.addressId,
+    /*将cartlist中的每个对象的cartitemid提取出来形成一个新的数组*/
     cartItemIds: state.cartList.map(item => item.cartItemId)
   }
+  /*axios.post方法接受两个参数，第一个参数是请求的URL，这里是'/saveOrder'，
+  表示发送POST请求到/saveOrder的路径。第二个参数是请求的数据，这里是params，即订单相关的数据。*/
   const { data } = await createOrder(params)
+  /*调用setLocal('cartItemIds', '')函数，将'cartItemIds'作为键，空字符串作为值，存储在本地存储中。清空本地存储的值。*/
   setLocal('cartItemIds', '')
   state.orderNo = data
   state.showPay = true
@@ -113,13 +123,20 @@ const close = () => {
 }
 
 const handlePayOrder = async (type) => {
+  /*函数体中首先调用payOrder函数，并通过await关键字等待异步操作的结果。
+  这表示payOrder函数返回的是一个Promise对象，函数将暂停执行，直到Promise对象状态变为resolved（已解决）或rejected（已拒绝）。
+  这里payOrder函数接受一个参数params，作为请求的查询参数，函数体中调用axios.get方法，
+  发送一个GET请求到指定的路径/paySuccess，并将params作为查询参数传递给服务器。
+  axios.get方法返回一个Promise对象，代表异步操作的结果。*/
   await payOrder({ orderNo: state.orderNo, payType: type })
   showSuccessToast('支付成功')
+  /*使用setTimeout函数，设置一个延迟定时器。在延迟2秒后，执行回调函数。
+  * 在回调函数中，通过router.push方法导航到/order路径。*/
   setTimeout(() => {
     router.push({ path: '/order' })
   }, 2000)
 }
-
+/*计算总价*/
 const total = computed(() => {
   let sum = 0
   state.cartList.forEach(item => {

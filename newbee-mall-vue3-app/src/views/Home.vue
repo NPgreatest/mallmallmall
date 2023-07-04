@@ -2,6 +2,7 @@
 
 <template>
   <div>
+<!--如果 state.headerScroll 的值为真（truthy），则添加名为 "active" 的CSS类；如果 state.headerScroll 的值为假（falsy），则移除 "active" CSS类。-->
     <header class="home-header wrap" :class="{'active' : state.headerScroll}">
       <router-link tag="i" to="./category"><i class="nbicon nbmenu2"></i></router-link>
       <div class="header-search">
@@ -87,11 +88,11 @@ const state = reactive({
   recommends: [],
   categoryList: [
     {
-      name: '新蜂超市',
+      name: 'OFA超市',
       imgUrl: 'https://s.yezgea02.com/1604041127880/%E8%B6%85%E5%B8%82%402x.png',
       categoryId: 100001
     }, {
-      name: '新蜂服饰',
+      name: 'OFA服饰',
       imgUrl: 'https://s.yezgea02.com/1604041127880/%E6%9C%8D%E9%A5%B0%402x.png',
       categoryId: 100003
     }, {
@@ -99,11 +100,11 @@ const state = reactive({
       imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%85%A8%E7%90%83%E8%B4%AD%402x.png',
       categoryId: 100002
     }, {
-      name: '新蜂生鲜',
+      name: 'OFA生鲜',
       imgUrl: 'https://s.yezgea02.com/1604041127880/%E7%94%9F%E9%B2%9C%402x.png',
       categoryId: 100004
     }, {
-      name: '新蜂到家',
+      name: 'OFA到家',
       imgUrl: 'https://s.yezgea02.com/1604041127880/%E5%88%B0%E5%AE%B6%402x.png',
       categoryId: 100005
     }, {
