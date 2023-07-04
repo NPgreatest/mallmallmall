@@ -14,10 +14,12 @@ export default {
      * 2 滚动的时候实时派发scroll事件，不会截流。
      * 3 除了实时派发scroll事件，在swipe的情况下仍然能实时派发scroll事件
      */
+    /*probeType (默认值为 1): 一个数字，代表在滚动时是否派发滚动事件，以及是否进行节流（限制事件的频率）。*/
     probeType: {
       type: Number,
       default: 1
     },
+
     // 点击列表是否派发click事件
     click: {
       type: Boolean,

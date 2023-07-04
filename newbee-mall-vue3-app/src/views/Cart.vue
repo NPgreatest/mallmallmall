@@ -173,7 +173,9 @@ const onSubmit = async () => {
   const params = JSON.stringify(state.result)
   router.push({ path: '/create-order', query: { cartItemIds: params } })
 }
-/*发送delete请求来修改购物车*/
+/*发送delete请求来修改购物车
+* 修改后进行页面刷新充值axios.js 文件内容
+* 然后执行init*/
 const deleteGood = async (id) => {
   await deleteCartItem(id)
   cart.updateCart()
@@ -182,11 +184,13 @@ const deleteGood = async (id) => {
 }
 
 const groupChange = (result) => {
+  /*如果选中的个数和购物车中的个数相同，那么显示全选*/
   if (result.length == state.list.length) {
     state.checkAll = true
   } else {
     state.checkAll = false
   }
+  /*将state中的选中个数进行刷新*/
   state.result = result
 }
 

@@ -1,29 +1,40 @@
-
-
 <template>
   <div class="categray">
     <div>
       <header class="category-header wrap van-hairline--bottom">
+<!--        创建一个 icon，并设置其类名为 "nbicon" 和 "nbfanhui"。它具有一个 click 事件侦听器，当点击时，会调用 goHome 方法。-->
         <i class="nbicon nbfanhui" @click="goHome"></i>
         <div class="header-search">
           <i class="nbicon nbSearch"></i>
-          <router-link tag="span" class="search-title" to="./product-list?from=category">全场50元起步</router-link>
+<!--   创建一个 Vue Router 链接，设置其 tag 为 "span"，类名为 "search-title" 并导航到 "./product-list?from=category"。链接文本为 “全场50元起步”。-->
+          <router-link tag="span" class="search-title" to="./product-list?from=category">中华有为，就用华为！</router-link>
         </div>
         <i class="iconfont icon-More"></i>
       </header>
+<!--      插入一个自定义的 <nav-bar> 组件-->
       <nav-bar></nav-bar>
       <div class="search-wrap" ref="searchWrap">
+<!--        插入一个自定义的 <list-scroll> 组件,用于下拉的实现-->
         <list-scroll :scroll-data="state.categoryData" class="nav-side-wrapper">
+<!--          <ul class="nav-side"> - 创建左侧的无序列表-->
           <ul class="nav-side">
+<!--            使用了 Vue 的 v-for 指令来循环遍历 state.categoryData 数组。对于数组中的每个元素，它创建一个列表项。-->
+<!--            :key="item.categoryId" - 是一个绑定的 key 属性，通常用于提高 Vue 列表渲染的性能。这里，它被设置为当前遍历的项的 categoryId 属性。-->
+<!--            v-text="item.categoryName" - 是一个指令，它将列表项的文本内容设置为 item 对象的 categoryName 属性。这可以显示分类的名称。-->
+<!--            :class="{'active' : state.currentIndex == item.categoryId}" - 是一个绑定的 class 属性。如果当前 state.currentIndex 等于
+            item.categoryId，则为此列表项添加 'active' 类。用于高亮展示-->
+<!--            @click="selectMenu(item.categoryId)" - 是一个点击事件监听器。当用户点击列表项时，它将调用 selectMenu 方法，
+并传递 item.categoryId 作为参数。用于切换高亮展示项目-->
             <li
-              v-for="item in state.categoryData"
-              :key="item.categoryId"
-              v-text="item.categoryName"
-              :class="{'active' : state.currentIndex == item.categoryId}"
-              @click="selectMenu(item.categoryId)"
+                v-for="item in state.categoryData"
+                :key="item.categoryId"
+                v-text="item.categoryName"
+                :class="{'active' : state.currentIndex == item.categoryId}"
+                @click="selectMenu(item.categoryId)"
             ></li>
           </ul>
         </list-scroll>
+
         <div class="search-content">
           <list-scroll :scroll-data="state.categoryData" >
             <div class="swiper-container">
