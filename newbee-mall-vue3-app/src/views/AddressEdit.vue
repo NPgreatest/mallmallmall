@@ -71,9 +71,9 @@ onMounted(async () => {
   state.from = from || ''
   /*如果type是edit，那就代表可以编辑*/
   if (type == 'edit') {
-    console.log(1)
+
     const { data: addressDetail } = await getAddressDetail(addressId)
-    console.log(addressDetail)
+
     let _areaCode = ''
     const province = tdist.getLev1()
     /*Object.entries将state.areaList.county_list对象转换为一个包含键值对的数组，其中每个键值对表示一个区县的代码和名称。
@@ -86,7 +86,7 @@ onMounted(async () => {
         // 找到区对应的几个市区
         /*filter() 方法会返回一个新的数组，其中包含满足条件的元素。*/
         const cityItem = Object.entries(state.areaList.city_list).filter(([cityId, cityName]) => cityId.substr(0, 4) == id.substr(0, 4))[0]
-        console.log(cityItem)
+
         // 对比找到的省份和接口返回的省份是否相等，因为有一些区会重名
         /*foreach无法中途停止*/
         if (province[provinceIndex].text == addressDetail.provinceName && cityItem[1] == addressDetail.cityName) {
@@ -124,14 +124,18 @@ const onSave = async (content) => {
   if (state.type == 'edit') {
     params['addressId'] = state.addressId
   }
+  /*通过 await 关键字等待异步函数的执行结果，代码会暂停执行，
+  直到 Promise 对象被解析（resolved）或拒绝（rejected）。一旦 Promise 被解析，就会继续执行后续的代码。*/
   await state.type == 'add' ? addAddress(params) : EditAddress(params)
   showToast('保存成功')
   setTimeout(() => {
+    /*返回上一页*/
     router.back()
   }, 1000)
 }
 
 const onDelete = async () => {
+  /*参数是地址的id，执行axios.delete函数，像后端传递HTTP DELETE 请求*/
   await DeleteAddress(state.addressId)
   showToast('删除成功')
   setTimeout(() => {
