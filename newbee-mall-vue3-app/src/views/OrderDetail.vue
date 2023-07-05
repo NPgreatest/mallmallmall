@@ -2,7 +2,7 @@
 
 <template>
   <div class="order-detail-box">
-    <s-header :name="'订单详情'" @callback="close"></s-header>
+    <s-header :name="'订单详情'" ></s-header>
     <div class="order-status">
       <div class="status-item">
         <label>订单状态：</label>
@@ -16,6 +16,8 @@
         <label>下单时间：</label>
         <span>{{ state.detail.createTime }}</span>
       </div>
+<!--      根据订单目前的状态来决定显示的按钮类型-->
+<!--      如果state.detail.orderStatus == 0就显示去支付，点击后弹出支付窗口-->
       <van-button v-if="state.detail.orderStatus == 3" style="margin-bottom: 10px" color="#1baeae" block @click="handleConfirmOrder(state.detail.orderNo)">确认收货</van-button>
       <van-button v-if="state.detail.orderStatus == 0" style="margin-bottom: 10px" color="#1baeae" block @click="showPayFn">去支付</van-button>
       <van-button v-if="!(state.detail.orderStatus < 0 || state.detail.orderStatus == 4)" block @click="handleCancelOrder(state.detail.orderNo)">取消订单</van-button>
@@ -72,9 +74,12 @@ onMounted(() => {
 const init = async () => {
   showLoadingToast({
     message: '加载中...',
+    /*当加载提示显示时，用户不能点击其他元素。*/
     forbidClick: true
   });
+/*  使用解构赋值从 route.query 对象中提取 id 属性。*/
   const { id } = route.query
+  /*根据id从服务器获取订单详细信息*/
   const { data } = await getOrderDetail(id)
   state.detail = data
   closeToast()
@@ -100,11 +105,14 @@ const handleConfirmOrder = (id) => {
     title: '是否确认订单？',
   }).then(() => {
     confirmOrder(id).then(res => {
+      /*表示一个 HTTP 请求已成功完成，检查订单确认是否成功。*/
       if (res.resultCode == 200) {
         showSuccessToast('确认成功')
         init()
       }
     })
+    /*在最初的 showConfirmDialog 的 Promise 链上，有一个 .catch 方法。这个 .catch
+    用于处理任何在 Promise 链中发生的错误或者如果用户取消对话框。在这个例子中，.catch 的回调函数是空的，这意味着如果用户取消或发生错误，不执行任何操作。*/
   }).catch(() => {
     // on cancel
   });
@@ -120,9 +128,7 @@ const handlePayOrder = async (id, type) => {
   init()
 }
 
-const close = () => {
-  closeDialog
-}
+
 </script>
 
 <style lang="less" scoped>

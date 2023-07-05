@@ -14,11 +14,13 @@
 <!--      </div>-->
       <div class="product-info">
         <div class="product-title">
+<!--          商品名-->
           {{ state.detail.goodsName || '' }}
         </div>
         <div class="product-desc">免邮费 顺丰快递</div>
         <div class="product-detail">{{state.detail.tag}}</div>
         <div class="product-price">
+<!--          商品价格-->
           <span>¥{{ state.detail.sellingPrice || '' }}</span>
           <!-- <span>库存203</span> -->
         </div>
@@ -30,13 +32,17 @@
           <li>安装服务</li>
           <li>常见问题</li>
         </ul>
+<!--        细节信息-->
         <div class="product-content" v-html="state.detail.goodsDetailContent || ''"></div>
       </div>
     </div>
     <van-action-bar>
       <van-action-bar-icon icon="chat-o" text="客服" />
+<!--      点击后可以前往购物车，并且显示目前购物车中有多少个订单-->
       <van-action-bar-icon icon="cart-o" :badge="!cart.count ? '' : cart.count" @click="goTo()" text="购物车" />
+<!--      点击后加入购物车-->
       <van-action-bar-button type="warning" @click="handleAddCart" text="加入购物车" />
+<!--      购买选项-->
       <van-action-bar-button type="danger" @click="goToCart" text="立即购买" />
     </van-action-bar>
   </div>
@@ -85,12 +91,17 @@ const goTo = () => {
 }
 
 const handleAddCart = async () => {
+  /*使用await关键字等待这个Promise的解析结果。解析结果被解构赋值给resultCode变量。*/
   const { resultCode } = await addCart({ goodsCount: 1, goodsId: state.detail.goodsId })
+  /*如果resultCode等于200，调用showSuccessToast函数显示一个成功的提示消息，表示添加到购物车成功。
+  * 接收一个params参数，并通过axios.post方法向'/shop-cart'发起POST请求，传递params作为请求的参数。*/
   if (resultCode == 200 ) showSuccessToast('添加成功')
+/*更新购物车数据*/
   cart.updateCart()
 }
 
 const goToCart = async () => {
+  /*首先更新购物车，之后前往购物车页面*/
   await addCart({ goodsCount: 1, goodsId: state.detail.goodsId })
   cart.updateCart()
   router.push({ path: '/cart' })

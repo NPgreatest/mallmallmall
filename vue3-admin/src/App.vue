@@ -1,5 +1,8 @@
 <template>
-  <div class="layout">
+  <div v-if="$route.path === '/login'">
+    <router-view/>
+  </div>
+  <div class="layout" v-else>
     <el-container v-if="state.showMenu" class="container">
       <el-aside class="aside">
         <div class="head">
@@ -69,7 +72,11 @@
       <router-view />
     </el-container>
   </div>
+
+
+
 </template>
+
 
 <script setup>
 import { reactive } from 'vue'

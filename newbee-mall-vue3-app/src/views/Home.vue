@@ -3,29 +3,42 @@
 <template>
   <div>
 <!--如果 state.headerScroll 的值为真（truthy），则添加名为 "active" 的CSS类；如果 state.headerScroll 的值为假（falsy），则移除 "active" CSS类。-->
+<!--    用于在滚动中调整header是否透明-->
     <header class="home-header wrap" :class="{'active' : state.headerScroll}">
+<!--      三条线的标志点击后可以跳转到分类界面-->
       <router-link tag="i" to="./category"><i class="nbicon nbmenu2"></i></router-link>
+
       <div class="header-search">
         <span class="app-name">OneForAll</span>
         <i class="iconfont icon-search"></i>
+<!--        搜索框-->
         <router-link tag="span" class="search-title" to="./product-list?from=home">山河无恙，人间皆安</router-link>
       </div>
+<!--      如果尚未登录则显示登录2字，点击后前往登录页面-->
+<!--      如果已经登陆，那么就显示小人icon，点击后跳转到个人中心，-->
       <router-link class="login" tag="span" to="./login" v-if="!state.isLogin">登录</router-link>
       <router-link class="login" tag="span" to="./user" v-else>
         <van-icon name="manager-o" />
       </router-link>
     </header>
     <nav-bar />
+<!--    轮播图，轮播图片来自state.swiperList-->
     <swiper :list="state.swiperList"></swiper>
+<!--十个选项，还没有做，点击后会显示敬请期待-->
     <div class="category-list">
       <div v-for="item in state.categoryList" v-bind:key="item.categoryId" @click="tips">
         <img :src="item.imgUrl">
         <span>{{item.name}}</span>
       </div>
     </div>
+<!--    新品上线栏目-->
     <div class="good">
       <header class="good-header">新品上线</header>
+<!--      用于展示一个骨架屏效果，即在加载内容时显示一个占位符。这里设置了title属性，用于显示一个标题，
+同时使用:row="3"和:loading="state.loading"属性进行动态绑定。
+:row="3"表示占位符的行数为3行，:loading="state.loading"表示占位符的加载状态由state.loading变量决定。-->
       <van-skeleton title :row="3" :loading="state.loading">
+<!--        展示所有的新品，并在点击后跳转到商品详情页面-->
         <div class="good-box">
           <div class="good-item" v-for="item in state.newGoodses" :key="item.goodsId" @click="goToDetail(item)">
             <img :src="$filters.prefix(item.goodsCoverImg)" alt="">
@@ -40,6 +53,7 @@
     <div class="good">
       <header class="good-header">热门商品</header>
       <van-skeleton title :row="3" :loading="state.loading">
+<!--        -->
         <div class="good-box">
           <div class="good-item" v-for="item in state.hots" :key="item.goodsId" @click="goToDetail(item)">
             <img :src="$filters.prefix(item.goodsCoverImg)" alt="">
@@ -132,7 +146,9 @@ const state = reactive({
   loading: true
 })
 onMounted(async () => {
+  /*通过getLocal('token')方法获取本地存储中的token值，并赋给变量token。*/
   const token = getLocal('token')
+  /*如果token存在（即用户已登录），将state.isLogin设置为true。*/
   if (token) {
     state.isLogin = true
     // 获取购物车数据.
@@ -142,22 +158,26 @@ onMounted(async () => {
     message: '加载中...',
     forbidClick: true
   });
+  /**/
+  /*获取轮播图信息，newGoodses、hotGoodses、recommendGoodses*/
   const { data } = await getHome()
   state.swiperList = data.carousels
   state.newGoodses = data.newGoodses
   state.hots = data.hotGoodses
   state.recommends = data.recommendGoodses
+  /*结束loading状态*/
   state.loading = false
   closeToast()
 })
-
+/*当document.body元素滚动时，触发回调函数。回调函数内部获取当前页面滚动的距离，并赋给变量scrollTop。
+如果scrollTop大于100，将state.headerScroll设置为true，否则设置为false。从而控制透明性*/
 nextTick(() => {
   document.body.addEventListener('scroll', () => {
     let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
     scrollTop > 100 ? state.headerScroll = true : state.headerScroll = false
   })
 })
-
+/*前往对应商品的详情页面*/
 const goToDetail = (item) => {
   router.push({ path: `/product/${item.goodsId}` })
 }

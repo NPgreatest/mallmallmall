@@ -1,6 +1,6 @@
 <template >
   <div class="login background" id="HomePage" @click="changeBackground"><!--一个包含登录和注册内容的<div>容器，类名为"login"。-->
-    <s-header :name="type == 'login' ? '登录' : '注册'" :back="'/home'"></s-header>
+    <s-header :name="state.type == 'login' ? '登录' : '注册'" :back="'/home'"></s-header>
     <!--页面顶部的标题栏，通过<s-header>组件实现，标题根据type的值动态显示为"注册"或"登录"，如果type的值是login则返回注册
     返回按钮指向"/home"路径。-->
     <img class="logo" src="https://new-bee-mall.oss-cn-shanghai.aliyuncs.com/images/cart.png" alt="">

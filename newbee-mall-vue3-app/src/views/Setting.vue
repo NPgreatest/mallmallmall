@@ -7,8 +7,8 @@
       <van-field v-model="state.introduceSign" label="个性签名" />
       <van-field v-model="state.password" type='password' label="修改密码" />
     </div>
-    <van-button round class="save-btn" color="#1baeae" type="primary" @click="save" block>保存</van-button>
-    <van-button round class="save-btn" color="#1baeae" type="primary" @click="handleLogout" block>退出登录</van-button>
+    <van-button round class="save-btn" color="linear-gradient(to right, #1baeae, #ff6f00)" type="primary" @click="save" block>保存</van-button>
+    <van-button round class="save-btn" color="linear-gradient(to right, #1baeae, #ff6f00)" type="primary" @click="handleLogout" block>退出登录</van-button>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ const state = reactive({
   introduceSign: '',
   password: ''
 })
-
+/*获取用户数据*/
 onMounted(async () => {
   const { data } = await getUserInfo()
   state.nickName = data.nickName
